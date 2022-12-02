@@ -3,7 +3,7 @@
 
 {
     "name" : "Complete Rental Solution for Fleet Rental and Machine Rental",
-    "version" : "15.3.22.8.2022",
+    "version" : "15.0.0.1",
     "category" : "Rental",
     'summary': 'Car rental product rental service rent product rent car rent machine rental vehicle rental Equipment Rental fleet rental car rental machine rental real estate rental service Equipment rental property rental subscription Machinery rental recurring service',
     "description": """ 

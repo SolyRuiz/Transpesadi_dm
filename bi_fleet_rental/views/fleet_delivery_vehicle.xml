@@ -12,14 +12,14 @@
 							<field name="document_type"/>
 							<field name="deadline_date"/>
 							<field name="partner_id" invisible="0"/>
-							<field name="client" invisible="0"/>
+							<field name="client" invisible="1"/>
 							<field name="last_odoomtr" />
 						</group>
 						<group>
 							<field name="received_by" attrs="{'invisible' : [('document_type','=','Entregar')]}"/>
 							<field name="deliver_by" attrs="{'invisible' : [('document_type','=','Recibir')]}"/>
 							<field name="phone"/>
-							<field name="end_result" />
+							<field name="end_result" options="{'no_create': True}"/>
 							<field name="contract_id" />
 							<field name="contract_log_id" />
 						</group>

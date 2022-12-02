@@ -204,30 +204,17 @@ class ReceiveDeliverVehicle(models.Model):
     check_list_ids = fields.One2many('checklist.lines', 'rd_vehicle_id', 'Checklist')   
     contract_id = fields.Many2one('rental.order', string="Rental Order")
     contract_log_id = fields.Many2one('fleet.vehicle.log.contract', string="Contract")
-    end_result = fields.Selection([('Disponible','Disponible'),('Taller','Taller')], string="Ingresar resultados")
+    end_result = fields.Many2one('fleet.vehicle.state', string="Ingresar resultados")
 
     def write(self, vals):
         res = super(ReceiveDeliverVehicle, self).write(vals)
-        if vals.get('end_result'):
-            state_id = self.env['fleet.vehicle.state'].search([('is_ingresar_resultados','=',True)],limit=1)
-            if state_id:
-                self.contract_id.write({
-                    'state_id' : state_id and state_id.id
-                })
+        if vals.get('end_result',False):
+            self.contract_log_id.vehicle_id.write({
+                'state_id' : self.end_result.id
+            })
         return res
 
-    @api.model
-    def create(self, vals):
-        res = super(ReceiveDeliverVehicle, self).create(vals)
-        if vals.get('end_result'):
-            state_id = self.env['fleet.vehicle.state'].search([('is_ingresar_resultados','=',True)],limit=1)
-            if state_id:
-                res.contract_id.write({
-                    'state_id' : state_id and state_id.id
-                })
-        return res
+# class FleetVehicleState(models.Model):
+#     _inherit = 'fleet.vehicle.state'
 
-class FleetVehicleState(models.Model):
-    _inherit = 'fleet.vehicle.state'
-
-    is_ingresar_resultados = fields.Boolean('Is Ingresar resultados ?')
+#     is_ingresar_resultados = fields.Boolean('Is Ingresar resultados ?')
